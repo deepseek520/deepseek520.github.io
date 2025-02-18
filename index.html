@@ -3,100 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeepSeek生态聚合平台</title>
+    <title>DeepSeek 生态聚合平台</title>
+    <!-- 引入 Font Awesome 图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-        }
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
-            background: #f5f6fa;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
+        body {
+            background: #0a192f; /* 深色背景 */
+            color: #ffffff;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 2rem;
         }
+
+        /* 头部标题样式 */
         .header {
             text-align: center;
-            padding: 40px 0;
-            border-bottom: 2px solid var(--secondary-color);
+            margin-bottom: 2rem;
         }
-        .grid {
+
+        .header-title {
+            font-size: 2.5rem;
+            color: #64ffda; /* 绿色高亮 */
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        /* 导航栏样式 */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .nav-tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: #64ffda; /* 绿色高亮 */
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab.active {
+            color: #fff;
+            position: relative;
+        }
+
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #64ffda;
+        }
+
+        /* 应用卡片容器 */
+        .app-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 25px;
-            padding: 30px 0;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
         }
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
+
+        /* 应用卡片样式 */
+        .app-card {
+            background: #172a45;
+            border-radius: 15px;
+            padding: 1.5rem;
             text-align: center;
-            transition: transform 0.3s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .card:hover {
+
+        .app-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        .card img {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 15px;
+
+        .app-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
-        .card a {
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: 500;
+
+        .app-name {
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        /* 隐藏其他内容 */
+        .hidden {
+            display: none;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- 头部标题 -->
         <div class="header">
-            <h1>DeepSeek生态聚合平台</h1>
-            <p>点击图标直达接入DeepSeek的官方服务</p>
+            <h1 class="header-title">DeepSeek 生态聚合平台</h1>
         </div>
 
-        <div class="grid">
-            <!-- 云服务平台 -->
-            <div class="card">
-                <img src="https://example.com/tencent-cloud.png" alt="腾讯云">
-                <a href="https://cloud.tencent.com" target="_blank">腾讯云AI服务</a>
-            </div>
+        <!-- 导航栏 -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showCategory('web')">Web版</button>
+            <button class="nav-tab" onclick="showCategory('mobile')">移动版</button>
+            <button class="nav-tab" onclick="showCategory('desktop')">桌面版</button>
+        </div>
 
-            <!-- 基础电信运营商 -->
-            <div class="card">
-                <img src="https://example.com/china-mobile.png" alt="中国移动">
-                <a href="https://www.10086.cn" target="_blank">中国移动AI服务[citation:5]</a>
+        <!-- Web版应用 -->
+        <div id="web" class="app-container">
+            <div class="app-card" onclick="handleWebClick('https://www.deepseek.com')">
+                <i class="fas fa-search app-icon"></i>
+                <div class="app-name">DeepSeek</div>
             </div>
-
-            <!-- 国家超算平台 -->
-            <div class="card">
-                <img src="https://example.com/supercomputing.png" alt="国家超算">
-                <a href="https://www.nscc.cn" target="_blank">国家超算互联网平台[citation:9]</a>
+            <div class="app-card" onclick="handleWebClick('https://www.sijilifliang.com')">
+                <i class="fas fa-brain app-icon"></i>
+                <div class="app-name">硅基流动平台</div>
             </div>
-
-            <!-- 国际云服务 -->
-            <div class="card">
-                <img src="https://example.com/aws.png" alt="AWS">
-                <a href="https://aws.amazon.com" target="_blank">亚马逊云服务[citation:7]</a>
+            <div class="app-card" onclick="handleWebClick('https://www.nanoaisearch.com')">
+                <i class="fas fa-robot app-icon"></i>
+                <div class="app-name">纳米AI搜索</div>
             </div>
-
-            <!-- 开发者生态 -->
-            <div class="card">
-                <img src="https://example.com/dev-conf.png" alt="开发者大会">
-                <a href="https://www.gdsc.com.cn" target="_blank">全球开发者大会[citation:8]</a>
+            <div class="app-card" onclick="handleWebClick('https://www.national-supercomputing.com')">
+                <i class="fas fa-network-wired app-icon"></i>
+                <div class="app-name">国家互联网超算平台</div>
             </div>
+            <div class="app-card" onclick="handleWebClick('https://www.mitaa.com')">
+                <i class="fas fa-keyboard app-icon"></i>
+                <div class="app-name">密塔AI搜索</div>
+            </div>
+            <div class="app-card" onclick="handleWebClick('https://www.askmanyai.com')">
+                <i class="fas fa-question-circle app-icon"></i>
+                <div class="app-name">AskManyAI</div>
+            </div>
+        </div>
 
-            <!-- 官方入口 -->
-            <div class="card">
-                <img src="https://example.com/deepseek-logo.png" alt="DeepSeek">
-                <a href="https://deepseek.com" target="_blank">DeepSeek官网[citation:4]</a>
+        <!-- 移动版应用 -->
+        <div id="mobile" class="app-container hidden">
+            <div class="app-card" onclick="handleMobileClick()">
+                <i class="fas fa-search app-icon"></i>
+                <div class="app-name">DeepSeek</div>
+            </div>
+            <div class="app-card" onclick="handleMobileClick()">
+                <i class="fas fa-robot app-icon"></i>
+                <div class="app-name">纳米AI搜索</div>
+            </div>
+            <div class="app-card" onclick="handleMobileClick()">
+                <i class="fas fa-keyboard app-icon"></i>
+                <div class="app-name">密塔AI搜索</div>
+            </div>
+            <div class="app-card" onclick="handleMobileClick()">
+                <i class="fas fa-piggy-bank app-icon"></i>
+                <div class="app-name">腾讯元宝</div>
+            </div>
+            <div class="app-card" onclick="handleMobileClick()">
+                <i class="fas fa-question-circle app-icon"></i>
+                <div class="app-name">AskManyAI</div>
+            </div>
+            <div class="app-card" onclick="handleMobileClick()">
+                <i class="fas fa-android app-icon"></i>
+                <div class="app-name">华为小艺助手</div>
+            </div>
+            <div class="app-card" onclick="handleMobileClick()">
+                <i class="fas fa-mouse-pointer app-icon"></i>
+                <div class="app-name">小爱同学</div>
+            </div>
+        </div>
+
+        <!-- 桌面版应用 -->
+        <div id="desktop" class="app-container hidden">
+            <div class="app-card" onclick="handleDesktopClick('https://download.nanoaisearch.com')">
+                <i class="fas fa-robot app-icon"></i>
+                <div class="app-name">纳米AI搜索</div>
             </div>
         </div>
     </div>
+
+    <script>
+        // 初始化时显示 Web版
+        window.onload = function() {
+            showCategory('web');
+        };
+
+        // 切换分类显示
+        function showCategory(category) {
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            const containers = document.querySelectorAll('.app-container');
+            containers.forEach(container => container.classList.add('hidden'));
+            
+            document.getElementById(category).classList.remove('hidden');
+        }
+
+        // 桌面版点击事件
+        function handleDesktopClick(downloadUrl) {
+            window.location.href = downloadUrl;
+        }
+
+        // 移动版点击事件
+        function handleMobileClick() {
+            alert('请前往应用商店下载');
+        }
+
+        // Web版点击事件
+        function handleWebClick(webUrl) {
+            window.open(webUrl, '_blank');
+        }
+    </script>
 </body>
 </html>
